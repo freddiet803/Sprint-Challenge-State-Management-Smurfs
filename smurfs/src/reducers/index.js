@@ -39,12 +39,6 @@ export const smurfReducer = (state = initialState, action) => {
         isLoading: true
       };
 
-    // case POST_SMURF_SUCCESS:
-    //         console.log("POST_SMURF_SUCCESS", action.payload)
-    //         return {
-    //             smurfsArray: [...state.smurfsArray, action.payload]
-    //         }
-
     case SMURF_POST_SUCCESS:
       return {
         ...state,
