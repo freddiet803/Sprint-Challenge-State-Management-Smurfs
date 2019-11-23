@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getSmurfs } from '../actions';
+import { getSmurfs, postSmurf } from '../actions';
 import { Smurf } from './Smurf';
 
 const Smurfs = props => {
@@ -13,12 +13,19 @@ const Smurfs = props => {
 
   const handleChange = e => {
     e.preventDefault();
-    setCreateSmurf({ [e.target.name]: e.target.value });
+    setCreateSmurf({ ...createSmurf, [e.target.name]: e.target.value });
     console.log(e.target.name, e.target.value);
   };
 
   const createnewSmurf = e => {
     e.preventDefault();
+    console.log(createSmurf);
+    props.postSmurf(createSmurf);
+    setCreateSmurf({ name: '', age: null, height: '', id: null });
+
+    setTimeout(() => {
+      props.getSmurfs();
+    }, 3000);
   };
 
   const getSmurfs = e => {
@@ -28,12 +35,12 @@ const Smurfs = props => {
   return (
     <>
       <div>
-        <form onSubmit={createSmurf}>
+        <form onSubmit={createnewSmurf}>
           <label>
             Name:{' '}
             <input
               type='text'
-              name='smurfname'
+              name='name'
               value={createSmurf.name}
               onChange={handleChange}
             />
@@ -42,7 +49,7 @@ const Smurfs = props => {
             Age:{' '}
             <input
               type='text'
-              name='smurfage'
+              name='age'
               value={createSmurf.age}
               onChange={handleChange}
             />
@@ -51,7 +58,7 @@ const Smurfs = props => {
             Height:{' '}
             <input
               type='text'
-              name='smurfheight'
+              name='height'
               value={createSmurf.height}
               onChange={handleChange}
             />
@@ -60,7 +67,7 @@ const Smurfs = props => {
             Id:{' '}
             <input
               type='text'
-              name='smurfid'
+              name='id'
               value={createSmurf.id}
               onChange={handleChange}
             />
@@ -95,4 +102,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps, { getSmurfs })(Smurfs);
+export default connect(mapStateToProps, { getSmurfs, postSmurf })(Smurfs);

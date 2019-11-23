@@ -1,10 +1,10 @@
 import {
   SMURF_GET_START,
   SMURF_GET_SUCCESS,
-  SMURF_GET_FAILURE
-  //SMURF_POST_START,
-  //SMURF_POST_SUCCESS,
-  //SMURF_POST_FAILURE
+  SMURF_GET_FAILURE,
+  SMURF_POST_START,
+  SMURF_POST_SUCCESS,
+  SMURF_POST_FAILURE
 } from '../actions';
 
 export const initialState = {
@@ -33,17 +33,29 @@ export const smurfReducer = (state = initialState, action) => {
         isLoading: false,
         error: action.payload
       };
-    // case SMURF_POST_START:
-    //   return {
-    //     ...state,
-    //     isLoading: true
-    //   };
+    case SMURF_POST_START:
+      return {
+        ...state,
+        isLoading: true
+      };
 
-    // case SMURF_POST_SUCCESS:
-    //   return {
-    //     ...state,
-    //     isLoading: false
-    //   };
+    // case POST_SMURF_SUCCESS:
+    //         console.log("POST_SMURF_SUCCESS", action.payload)
+    //         return {
+    //             smurfsArray: [...state.smurfsArray, action.payload]
+    //         }
+
+    case SMURF_POST_SUCCESS:
+      return {
+        ...state,
+        smurf: [...state.smurf, action.payload]
+      };
+
+    case SMURF_POST_FAILURE:
+      return {
+        ...state,
+        error: action.payload
+      };
 
     default:
       return state;
